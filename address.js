@@ -103,3 +103,22 @@ function renderWardAPI() {
         }
     });
 }
+
+function renderApartmentType() {
+    $.ajax({
+        type: "GET",
+        url : "http://localhost:8080/api/apartment-types",
+        success: function (aType) {
+            let str = `<option>--Select--</option>`;
+            for(let i =0; i < aType.length; i++) {
+                str += `<option value="${aType[i].code}"> ${aType[i].name}`
+                str += `</option>`;
+            }
+            document.getElementById("apartmentType").innerHTML = str;
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+}
+renderApartmentType();

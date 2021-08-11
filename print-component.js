@@ -106,19 +106,19 @@ function showApartmentFormCreate() {
   <div class="row mb-4">
     <div class="col">
       <div class="form-outline">
-        <select type="text" id="province" class="form-control" onchange="renderDistrictAPI()"></select>
+        <select  id="province" class="form-control" onchange="renderDistrictAPI()"></select>
         <label class="form-label" for="province"> Tỉnh/Thành Phố </label>
       </div>
     </div>
     <div class="col">
       <div class="form-outline">
-        <select type="text" id="district" class="form-control" onchange="renderWardAPI()"></select>
+        <select  id="district" class="form-control" onchange="renderWardAPI()"></select>
         <label class="form-label" for="district">Quận/Huyện</label>
       </div>
     </div>
     <div class="col">
       <div class="form-outline">
-        <select type="text" id="ward" class="form-control"> </select>
+        <select  id="ward" class="form-control"> </select>
         <label class="form-label" for="ward">Phường/Xã</label>
       </div>
     </div>
@@ -131,9 +131,19 @@ function showApartmentFormCreate() {
   </div>
     
   <!-- Text input -->
-  <div class="form-outline mb-4">
-    <input type="text" id="apartment-title" class="form-control" />
-    <label class="form-label" for="apartment-title" >Tittle </label>
+  <div class="row mb-4">
+    <div class="col">
+      <div class="form-outline">
+        <input type="text" id="postTitle" class="form-control" placeholder="8-16 character"/>
+        <label class="form-label" for="postTitle"> Title </label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline">
+        <select id="apartmentType" class="form-control"></select>
+        <label class="form-label" for="apartmentType"> Kiểu/Loại nhà</label>
+      </div>
+    </div>
   </div>
   
   <!-- 4 column grid layout with text inputs  -->
@@ -174,8 +184,8 @@ function showApartmentFormCreate() {
 <div class="row mb-4">
     <div class="col">
       <div class="form-outline">
-        <input type="file" id="photo" class="form-control"/>
-        <button class="form-control" onclick="uploadImage()">Upload</button>
+        <input type="file" id="photo" class="form-control" onchange="uploadImage()"/>
+<!--        <button class="form-control" onclick="uploadImage()">Upload</button>-->
       </div>
     </div>
     <div class="col mb-4">
@@ -185,8 +195,9 @@ function showApartmentFormCreate() {
       </div>
     </div>
   <!-- Submit button -->
-  <button type="submit" class="btn btn-primary btn-block mb-4" >Create new apartment for rent</button>
+  <button type="submit" class="btn btn-primary btn-block mb-4" onclick="createApartment()" >Create new apartment for rent</button>
 <!--</form>-->`
+
 }
 
 function printImgDescription() {

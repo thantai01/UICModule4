@@ -1,9 +1,6 @@
 let perPage = 8;
-let currentPage = 1;
 let start = 0;
 let end = perPage;
-
-let cur = 0;
 
 function renderApartmentByList(num) {
     $.ajax({
@@ -57,5 +54,58 @@ function renderApartmentByList(num) {
     });
 }
 
-renderApartmentByList();
+// renderApartmentByList();
 
+
+function createApartment() {
+    let apartmentImg = document.getElementById("imgURL").value;
+    let square = document.getElementById("square").value;
+    let quantityRoom = document.getElementById("roomQuantity").value;
+    let floor = document.getElementById("floor").value;
+    let description = document.getElementById("description").value;
+    let address = document.getElementById("address").value;
+    let ward = document.getElementById("ward").text;
+    let district = document.getElementById("district").text;
+    let price = document.getElementById("price").value;
+    let type = document.getElementById("apartmentType").value;
+    let postTitle = document.getElementById("imgURL").value;
+    let userID = localStorage.getItem("userID");
+
+    const newAparment = {
+        image: 1,
+        square: 1,
+        quantityRoom: 1,
+        floor: 1,
+        description: 1,
+        address: 1,
+        ward: 1,
+        district: 1,
+        price:1,
+        type:1,
+        user: {
+            id: 1
+        },
+        postTitle:"TEST"
+    }
+    console.log(newAparment)
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "POST",
+        data: JSON.stringify(newAparment),
+        url: "http://localhost:8080/api/apartments",
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function () {
+            alert("Successfully created new Apartment !!!!")
+            console.log("GUD")
+
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+}

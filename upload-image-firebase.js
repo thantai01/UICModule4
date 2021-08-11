@@ -19,6 +19,17 @@ function uploadImage(){
         })
 }
 
-function uploadDescriptionImg() {
+function saveImgToDatabase() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/apartments?",
+        success: function (apartments) {
 
+
+
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
 }
