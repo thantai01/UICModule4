@@ -40,9 +40,15 @@ function renderApartmentByList(num) {
                 }
             });
             str += `<hr>`
-            str += `<button onclick="prevPage(${apartments.number})">` +`Prev` + `</button>`
+            str += `<button onclick="renderApartmentByList(${apartments.number-1})">` +`Prev` + `</button>`
             str += `<button class="page-item" id="totalPage" value="${apartments.totalPages}" >${apartments.number+1} / ${apartments.totalPages} </button>`
-            str += `<button onclick="nextPage(${apartments.number})">`+ `Next` + `</button>`
+            if(apartments.number >= apartments.totalPages-1) {
+                str += `<button disabled>`+ `Next` + `</button>`
+            }else {
+                str += `<button onclick="renderApartmentByList(${apartments.number +1 })">`+ `Next` + `</button>`
+            }
+
+
             document.getElementById("post").innerHTML = str;
         },
         error: function (error) {
@@ -51,70 +57,5 @@ function renderApartmentByList(num) {
     });
 }
 
-
-
 renderApartmentByList();
-const apartment = window.localStorage.getItem("apartmentLength");
-const totalPages = Math.ceil(apartment/perPage);
 
-function getCurrentPage(currentPage) {
-    start = (currentPage-1)*perPage;
-    end = currentPage * perPage;
-}
-
-function nextPaging() {
-    currentPage++;
-    if(currentPage>totalPages) {
-        currentPage = totalPages;
-    }
-    getCurrentPage(currentPage);
-    renderApartmentByList();
-}
-function previousPaging() {
-    currentPage--;
-    if(currentPage<=1) {
-        currentPage = 1;
-    }
-    getCurrentPage(currentPage);
-    renderApartmentByList();
-}
-
-// function renderListPages() {
-//     let html = `<ul class="pagination">`;
-//     for(let i=1; i <= totalPages;i++) {
-//         html += `&nbsp`
-//         html += `<li class="page-item"><a class="page-link" onclick="changePage()">${i}</a></li>`;
-//         html += `&nbsp`
-//     }
-//     html += `</ul>`
-//     document.getElementById("number-page").innerHTML = html;
-// }
-
-// changePage();
-// function changePage() {
-//     const currentPages = document.querySelectorAll('.number-page ul li');
-//     const a = document.querySelectorAll('.number-page ul li a');
-//     for (let i = 0; i < idPages.length; i++) {
-//         idPages[i].onclick = function () {
-//             let value = i + 1;
-//             const current = document.getElementsByClassName('active');
-//             current[0].className = current[0].className.replace('active', '');
-//             this.classList.add('active');
-//             if (value > 1 && value < idPages.length) {
-//                 $('.btn-prev').removeClass('btn-active');
-//                 $('.btn-next').removeClass('btn-active');
-//             }
-//             if (value == 1) {
-//                 $('.btn-prev').addClass('btn-active');
-//                 $('.btn-next').removeClass('btn-active');
-//             }
-//             if (value == idPages.length) {
-//                 $('.btn-next').addClass('btn-active');
-//                 $('.btn-prev').removeClass('btn-active');
-//             }
-//             idPage = value;
-//             getCurrentPage(idPage);
-//             renderProduct(productArr);
-//         };
-//     }
-// }

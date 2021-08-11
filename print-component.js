@@ -12,9 +12,10 @@ function printTopMenuComponent() {
         "                </button>\n" +
         "                <div class=\"collapse navbar-collapse\" id=\"navbarNavAltMarkup\">\n" +
         "                    <div class=\"navbar-nav\">\n" +
-        "                        <a class=\"nav-link\" href=\"#\">Home</a>\n" +
+        "                        <a class=\"nav-link\" href=\"landing-page.html\">Home</a>\n" +
         "                        <a class=\"nav-link\" href=\"#\">News</a>\n" +
         "                        <a class=\"nav-link\" href=\"#\">Contact Us</a>\n" +
+        "                        <a class=\"nav-link\" href=\"#\">Member</a>\n" +
         " " +
         "\n" +
         "                    </div>\n" +
@@ -51,9 +52,11 @@ function printBannerComponent() {
         "            </div>";
 }
 
+
+
 function printPersonal() {
     document.getElementById("personal").innerHTML =
-        `<a class="btn btn-outline-success" onclick="showApartmentFormCreate()" >Create New Apartment For Lease</a>` + `&nbsp`+
+        `<a class="btn btn-outline-success" href="create-apartment.html" " >Create New Apartment For Lease</a>` + `&nbsp`+
         `<a class="btn btn-outline-success" onclick="personalApartmentList()" >My Apartment List </a>`+ `&nbsp`+
         `<a class="btn btn-outline-success" onclick="personalRentedList()" >My Rented List </a>`+ `&nbsp`+
         `<a class="btn btn-outline-success" onclick="personalHistory()" >My History </a>`;
@@ -96,6 +99,105 @@ function printSearchComponent() {
                   <button type="button" class="btn btn-outline-success" onclick="searchByElement()" style="text-decoration-color: white">Search</button>
 <!--            </form>-->`;
 }
+
 function showApartmentFormCreate() {
+    document.getElementById("apartment-create").innerHTML = `<form>
+  <!-- 4 column grid layout with text inputs  -->
+  <div class="row mb-4">
+    <div class="col">
+      <div class="form-outline">
+        <select type="text" id="province" class="form-control" onchange="renderDistrictAPI()"></select>
+        <label class="form-label" for="province"> Tỉnh/Thành Phố </label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline">
+        <select type="text" id="district" class="form-control" onchange="renderWardAPI()"></select>
+        <label class="form-label" for="district">Quận/Huyện</label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline">
+        <select type="text" id="ward" class="form-control"> </select>
+        <label class="form-label" for="ward">Phường/Xã</label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline">
+        <input type="text" id="address" class="form-control">
+        <label class="form-label" for="address">Số nhà/ Ngõ/ Đường</label>
+      </div>
+    </div>
+  </div>
+    
+  <!-- Text input -->
+  <div class="form-outline mb-4">
+    <input type="text" id="apartment-title" class="form-control" />
+    <label class="form-label" for="apartment-title" >Tittle </label>
+  </div>
+  
+  <!-- 4 column grid layout with text inputs  -->
+  <div class="row mb-4">
+    <div class="col">
+      <div class="form-outline">
+        <input type="text" id="square" class="form-control" placeholder="0"/>
+        <label class="form-label" for="square"> Tổng diện tích mặt sàn (m2) </label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline">
+        <input type="text" id="roomQuantity" class="form-control" placeholder="0"/>
+        <label class="form-label" for="roomQuantity">Số phòng ngủ</label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline">
+        <input type="text" id="floor" class="form-control" placeholder="0"/> 
+        <label class="form-label" for="floor">Số tầng</label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline">
+        <input type="text" id="price" class="form-control" placeholder="$/month"/>
+        <label class="form-label" for="price">Giá đề xuất</label>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Message input -->
+  <div class="form-outline mb-4">
+    <textarea class="form-control" id="description" rows="4"></textarea>
+    <label class="form-label" for="description">Mô tả chi tiết</label>
+  </div>
+  
+  <!--   Select image input -->
+<div class="row mb-4">
+    <div class="col">
+      <div class="form-outline">
+        <input type="file" id="photo" class="form-control"/>
+        <button class="form-control" onclick="uploadImg()">Upload</button>
+        <img src="" id="image" alt="">
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline">
+        <div id="preview-img">
+      </div>
+    </div>
+  <!-- Submit button -->
+  <button type="submit" class="btn btn-primary btn-block mb-4" >Create new apartment for rent</button>
+</form>`
+}
+
+function printAddImageBtn() {
+        let html = `<div class="col">`
+        html += `<div class="form-outline">
+                    <input type="file" id="chooseImage" class="form-control"/>
+                 </div>`
+        html += `<div class="form-outline">
+                    <input type="file" id="chooseImage" class="form-control"/>
+                </div>`
+        html += `</div>`
+    document.getElementById("image-card").innerHTML = html;
 
 }
