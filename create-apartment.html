@@ -8,10 +8,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 
+
+    <script src="print-component.js"></script>
+    <script src="address.js"></script>
+    <script src="upload-image-firebase.js"></script>
+
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-storage.js"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js"></script>
+<!--    <script async src="https://www.googletagmanager.com/gtag/js"></script>-->
     <!-- TODO: Add SDKs for Firebase products that you want to use -->
          https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-analytics.js"></script>
@@ -22,7 +27,7 @@
         var firebaseConfig = {
             apiKey: "AIzaSyBTgj2qKHnFHVAqOK_mz6LPwCniN70pKJY",
             authDomain: "casem4-a667f.firebaseapp.com",
-            databaseURL: "https://casem4-a667f-default-rtdb.firebaseio.com",
+            // databaseURL: "https://casem4-a667f-default-rtdb.firebaseio.com",
             projectId: "casem4-a667f",
             storageBucket: "casem4-a667f.appspot.com",
             messagingSenderId: "324302200725",
@@ -31,7 +36,10 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
+        // firebase.analytics();
+        console.log(firebase);
+        // uploadImage();
+
     </script>
 
     <style>
@@ -58,15 +66,14 @@
             printBannerComponent();
             printPersonal();
             showApartmentFormCreate();
-            printAddImageBtn();
             renderProvinceAPI();
             renderDistrictAPI();
             renderWardAPI();
+            printImgDescription();
 
         }
     </script>
-    <script src="print-component.js"></script>
-    <script src="address.js"></script>
+
 </head>
 <body onload="loadingLayout()">
     <div class="container-fluid">
@@ -115,29 +122,9 @@
             </div>
             <div class="col-1"></div>
         </div>
+
     </div>
 
-<script>
-    function uploadImage(){
-        const  ref=firebase.storage().ref();
-        const file=document.querySelector("#photo").files[0];
-        const name=file.name;
-        const metadata={
-            contentType:file.type
-        }
-        const task=ref.child(name).put(file,metadata);
 
-        task
-            .then(snapshot => snapshot.ref.getDownloadURL())
-            .then(url => {
-                alert("Image upload successful");
-                const image=document.querySelector("#image");
-                image.src=url;
-                console.log(url)
-                document.getElementById('main').innerHTML = `<img src="${url}" alt=""> </<img>`
-
-            })
-    }
-</script>
 </body>
 </html>

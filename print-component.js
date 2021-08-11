@@ -101,7 +101,7 @@ function printSearchComponent() {
 }
 
 function showApartmentFormCreate() {
-    document.getElementById("apartment-create").innerHTML = `<form>
+    document.getElementById("apartment-create").innerHTML = `<!--<form>-->
   <!-- 4 column grid layout with text inputs  -->
   <div class="row mb-4">
     <div class="col">
@@ -175,29 +175,43 @@ function showApartmentFormCreate() {
     <div class="col">
       <div class="form-outline">
         <input type="file" id="photo" class="form-control"/>
-        <button class="form-control" onclick="uploadImg()">Upload</button>
-        <img src="" id="image" alt="">
+        <button class="form-control" onclick="uploadImage()">Upload</button>
       </div>
     </div>
-    <div class="col">
+    <div class="col mb-4">
       <div class="form-outline">
-        <div id="preview-img">
+        <img src="" id="image" alt="" style="height: 150px;width: 150px">
+        <input hidden id="imgURL">
       </div>
     </div>
   <!-- Submit button -->
   <button type="submit" class="btn btn-primary btn-block mb-4" >Create new apartment for rent</button>
-</form>`
+<!--</form>-->`
 }
 
-function printAddImageBtn() {
+function printImgDescription() {
         let html = `<div class="col">`
         html += `<div class="form-outline">
-                    <input type="file" id="chooseImage" class="form-control"/>
+                    <input type="file" id="file1" class="form-control"/>
                  </div>`
         html += `<div class="form-outline">
-                    <input type="file" id="chooseImage" class="form-control"/>
+                    <input type="file" id="file2" class="form-control"/>
                 </div>`
-        html += `</div>`
-    document.getElementById("image-card").innerHTML = html;
+        html += `<div class="form-outline">
+                    <input type="file" id="file3" class="form-control"/>
+                </div>`
+        html += `<div class="form-outline">
+                    <input type="file" id="file4" class="form-control"/>
+                </div>`
+        html += `<div class="form-outline">
+                    <input type="file" id="file5" class="form-control"/>
+                </div>`
+        html += `<div class="form-outline">
+                    <input type="file" id="file6" class="form-control"/>
+                </div>`
 
+        html += `<button class="form-control" onclick="uploadDescriptionImg()">Upload</button>`
+        html += `</div>`
+
+    document.getElementById("image-card").innerHTML = html;
 }
