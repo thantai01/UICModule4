@@ -14,7 +14,8 @@ function uploadImage(){
             const image=document.querySelector("#image");
             image.src=url;
             console.log(url)
-            document.getElementById('imgURL').innerHTML = `<img src="${url}" alt=""/>`
+            // document.getElementById('imgURL').value = `<img src="${url}" alt=""/>`
+            document.getElementById('imgURL').value = url;
 
         })
 }

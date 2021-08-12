@@ -15,13 +15,37 @@ function printTopMenuComponent() {
         "                        <a class=\"nav-link\" href=\"landing-page.html\">Home</a>\n" +
         "                        <a class=\"nav-link\" href=\"#\">News</a>\n" +
         "                        <a class=\"nav-link\" href=\"#\">Contact Us</a>\n" +
-        "                        <a class=\"nav-link\" href=\"#\">Member</a>\n" +
         " " +
         "\n" +
         "                    </div>\n" +
         "                </div>\n" +
+        `<div class="nav-item dropdown" id='anonymous'>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false">
+                ${localStorage.getItem('name')}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div>
+                    <button class="dropdown-item" onclick="infoUser(${localStorage.getItem('id')})">My information
+                    </button>
+                </div>
+                <div>
+                    <button class="dropdown-item" onclick="">My Orders</button>
+                </div>
+                <div>
+                    <hr class="dropdown-divider">
+                </div>
+                <div><button class="dropdown-item" href="#">Something else here</button></div>
+            </ul>
+        </div>
+    <div class="nav-item">
+        <button class="nav-link btn btn-warnings" onclick="logout()" href="#" tabIndex="-1"
+                aria-disabled="true">Logout
+        </button>
+    </div>` +
         "            </div>\n" +
         "        </nav>";
+
 }
 
 function printBannerComponent() {
@@ -56,10 +80,23 @@ function printBannerComponent() {
 
 function printPersonal() {
     document.getElementById("personal").innerHTML =
-        `<a class="btn btn-outline-success" href="create-apartment.html" " >Create New Apartment For Lease</a>` + `&nbsp`+
-        `<a class="btn btn-outline-success" onclick="personalApartmentList()" >My Apartment List </a>`+ `&nbsp`+
-        `<a class="btn btn-outline-success" onclick="personalRentedList()" >My Rented List </a>`+ `&nbsp`+
-        `<a class="btn btn-outline-success" onclick="personalHistory()" >My History </a>`;
+        document.getElementById("personal").innerHTML =
+            `<a class="btn btn-outline-success" href="create-apartment.html" >Create New Apartment For Lease</a>` + `&nbsp` +
+            // `<a class="btn btn-outline-success" onclick="renderApartmentByUserId(localStorage.getItem('id'))" >My Apartment List </a>` + `&nbsp` +
+            `<a class="btn btn-outline-success" onclick="renderApartmentByUserId(1)" >My Apartment List </a>` + `&nbsp` +
+            `<select class="btn btn-outline-success" id="rented" onclick="personalRentedList()" >
+            <option class="btn btn-outline-success" value="0" >My Rented list</option>
+            <option class="btn btn-outline-success" value="1">Đang chờ</option>
+            <option class="btn btn-outline-success" value="2">Đã chấp nhận</option>
+            <option class="btn btn-outline-success" value="3">Đã hủy</option>
+        </select>` + `&nbsp` +
+            `<select class="btn btn-outline-success" id="request" onclick="personalRequest()" >
+            <option class="btn btn-outline-success" value="0">My Request</option>
+            <option class="btn btn-outline-success" value="1">Đang chờ</option>
+            <option class="btn btn-outline-success" value="2">Đã chấp nhận</option>
+            <option class="btn btn-outline-success" value="3">Đã hủy</option>
+        </select>` + `&nbsp` +
+            `<a class="btn btn-outline-success" onclick="personalHistory()" >My History </a>`;
 }
 
 
@@ -191,7 +228,7 @@ function showApartmentFormCreate() {
     <div class="col mb-4">
       <div class="form-outline">
         <img src="" id="image" alt="" style="height: 150px;width: 150px">
-        <input hidden id="imgURL">
+        <input type="hidden" id="imgURL"/>
       </div>
     </div>
   <!-- Submit button -->
@@ -221,7 +258,7 @@ function printImgDescription() {
                     <input type="file" id="file6" class="form-control"/>
                 </div>`
 
-        html += `<button class="form-control" onclick="uploadDescriptionImg()">Upload</button>`
+        html += `<button class="form-control" onclick="uploadDescriptionImg()">Save</button>`
         html += `</div>`
 
     document.getElementById("image-card").innerHTML = html;

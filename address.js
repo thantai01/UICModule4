@@ -62,7 +62,7 @@ function renderProvinceAPI() {
     });
 }
 
-function renderDistrictAPI() {
+function renderDistrictAPI(code) {
     let sld = document.getElementById("province").value;
     $.ajax({
         type: "GET",
@@ -71,9 +71,11 @@ function renderDistrictAPI() {
             let str =``;
             str += `<option>--Select--</option>`
             for(let i =0; i < district.length; i++) {
-                if(district[i].province_code == sld) {
-                    str += `<option value="${district[i].code}"> ${district[i].name} </option>`
+                if(district[i].province_code == sld || district[i].province_code == code) {
+                    str += `<option value="${district[i].code}"> ${district[i].name}`;
+                    str += `</option>`
                 }
+
             }
             document.getElementById("district").innerHTML = str;
         },
@@ -83,7 +85,7 @@ function renderDistrictAPI() {
     });
 }
 
-function renderWardAPI() {
+function renderWardAPI(code) {
     let sld = document.getElementById("district").value;
     $.ajax({
         type: "GET",
@@ -92,11 +94,12 @@ function renderWardAPI() {
             let str =``;
             str += `<option>--Select--</option>`
             for(let i =0; i < ward.length; i++) {
-                if(ward[i].district_code == sld) {
-                    str += `<option value="${ward[i].code}"> ${ward[i].name} </option>`
+                if(ward[i].district_code == sld || ward[i].district_code == code) {
+                    str += `<option value="${ward[i].code}"> ${ward[i].name} </option>`;
                 }
             }
             document.getElementById("ward").innerHTML = str;
+
         },
         error: function (error) {
             console.log(error)
@@ -111,7 +114,7 @@ function renderApartmentType() {
         success: function (aType) {
             let str = `<option>--Select--</option>`;
             for(let i =0; i < aType.length; i++) {
-                str += `<option value="${aType[i].code}"> ${aType[i].name}`
+                str += `<option value="${aType[i].id}"> ${aType[i].name}`
                 str += `</option>`;
             }
             document.getElementById("apartmentType").innerHTML = str;
@@ -121,4 +124,4 @@ function renderApartmentType() {
         }
     })
 }
-renderApartmentType();
+
