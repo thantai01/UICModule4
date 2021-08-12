@@ -60,30 +60,30 @@ function findDisNameByDisID(disID) {
         type:"GET",
         url: "https://provinces.open-api.vn/api/d",
         success: function getDistrict(district) {
-            console.log(district)
             for(let i=0;i < district.length;i++) {
                 if(district[i].code == disID) {
                     return  district[i].name;
                 }
             }
+            return "A";
         }
     })
-    return null;
+
 }
 function findWardNameWardID(wardID) {
     $.ajax({
         type: "GET",
         url: "https://provinces.open-api.vn/api/w",
         success: function getDistrict(ward) {
-            console.log(ward)
             for (let i = 0; i < district.length; i++) {
                 if (ward[i].code == wardID) {
                     return ward[i].name;
                 }
             }
+            return "B";
         }
     })
-    return null;
+
 }
 findWardNameWardID();
 findDisNameByDisID();
@@ -97,8 +97,8 @@ function createApartment() {
     let description = document.getElementById("description").value;
     let address = document.getElementById("address").value;
 
-    let ward = findWardNameWardID(document.getElementById("ward").value);
-    let district = findDisNameByDisID(document.getElementById("district").value);
+    let ward = document.getElementById("ward").value;
+    let district = document.getElementById("district").value;
 
     let price = document.getElementById("price").value;
     let type = document.getElementById("apartmentType").value;
@@ -119,7 +119,7 @@ function createApartment() {
             id: type
         },
         user: {
-            id: 1
+            id: userID
         },
         postTitle:postTitle
     }
@@ -147,7 +147,9 @@ function createApartment() {
     })
 }
 
+
 function renderApartmentByUserId(userId) {
+
     let str = `<table class="table table-light table-bordered" `;
         str += `<tr>`;
         str += `<th> Title </th>`;
@@ -165,19 +167,39 @@ function renderApartmentByUserId(userId) {
         success: function (apartment) {
             console.log(apartment)
             for(let i =0;i < apartment.length;i++) {
+                let disID = parseInt(apartment[i].district);
+                let wardID = parseInt(apartment[i].ward);
+                let wardName = "";
+                let disName = "";
+                let tdId =  apartment[i].id + "td";
                 str += `<tr>`;
-                str += `<td>${apartment[i].postTitle}</td>`;
-                str += `<td>${apartment[i].createdTime}</td>`;
-                str += `<td>${apartment[i].address}</td>`;
-                str += `<td>` + `renderWardAPI(${apartment[i].ward})` + `</td>`;
-                str += `<td>` + `renderDistrictAPI(${apartment[i].district})` + `</td>`;
+                str += `<td> ${apartment[i].postTitle} </td>`;
+                str += `<td> ${apartment[i].createdTime} </td>`;
+                str += `<td> ${apartment[i].address} </td>`;
+                str += `<td id="${tdId}"> </td>`;
+                str += `<td> ${disName} </td>`;
+                $.ajax({
+                    type:"GET",
+                    url: "https://provinces.open-api.vn/api/d",
+                    success: function (district) {
+                        for(let i=0;i < district.length;i++) {
+                            if(district[i].code === disID) {
+                                console.log(district[i].name);
+                                document.getElementById(tdId).value = district[i].name;
+                            }
+                        }
+                    }
+                })
                 str += `<td>${apartment[i].type.name}</td>`;
                 str += `<td> <a class="btn btn-info"> Detail </a></td>`;
                 str += `<td> <a class="btn btn-info"> Delete </a></td>`;
                 str += `</tr>`;
+
             }
             str += `</table>`
             document.getElementById("post").innerHTML = str;
+
+
         },
         error: function (error) {
             console.log(error)
